@@ -85,7 +85,6 @@ clickEl.forEach(productsEL => {
                     newBasketTemplate.querySelector(".basket__close").setAttribute('Keyy', el.products__picture);
                     containerBasket.appendChild(newBasketTemplate);
                     arrBasketProd.push(productsEL.getAttribute('Keyy'));
-                    console.log(productsEL)
                 };
             });
         } else {
@@ -98,18 +97,27 @@ clickEl.forEach(productsEL => {
             });
         };
     });
-
 });
 
 window.addEventListener('click', function () {
     closeArrBtn = document.querySelectorAll(".basket__close");
     closeArrBtn.forEach(el => {
+        // console.log(el.name);
+        // console.log(arrBasketProd);
+
         el.addEventListener('click', function () {
+
+            console.log(arrBasketProd);
             for (let i = 0; i < arrBasketProd.length; i++) {
-                if (arrBasketProd[i] === el.name) {
-                    delete arrBasketProd[i];
+                if (arrBasketProd[i] === el.getAttribute('Keyy')) {
+                    arrBasketProd.splice(i, 1);
+                    if (arrBasketProd.length === 0) {
+                        const clickDiv = document.querySelector('div.basket__left');
+                        clickDiv.setAttribute('style', 'padding-top: 0px; padding-bottom: 0px')
+                    };
                 };
             }
+
             el.parentElement.parentElement.parentElement.remove();
         });
     });
